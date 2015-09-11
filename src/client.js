@@ -107,7 +107,7 @@ Client.prototype.onRemoteUpdate = function(fromId){
  * Schedule a sync cycle. This method should be used from the outside to
  * trigger syncs.
  */
-Client.prototype.schedule = function(){
+Client.prototype.schedule = function(newData){
   // do nothing if already scheduled
   if(this.scheduled){ return; }
   this.scheduled = true;
@@ -119,7 +119,8 @@ Client.prototype.schedule = function(){
 /**
  * Alias function for `sync`
  */
-Client.prototype.sync = function(){
+Client.prototype.sync = function(newData){
+  Object.assign(this.doc.localCopy, newData || {});
   this.schedule();
 };
 
